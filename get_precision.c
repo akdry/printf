@@ -1,39 +1,34 @@
 #include "main.h"
 
 /**
- * print_prec - Calculates the precision for printing
- * @format: Formatted string in which to print the arguments
- * @i: List of arguments to be printed
- * @list: list of arguments
- *
- * Return: Precision.
+ * print_string - loops through a string and prints
+ * every character
+ * @l: va_list arguments from _printf
+ * @f: pointer to the struct flags that determines
+ * if a flag is passed to _printf
+ * Return: number of char printed
  */
-int print_prec(const char *format, int *i, va_list list)
+int print_string(va_list l, flags_t *f)
 {
-	int n = *i + 1;
-	int prec = -1;
+	char *s = va_arg(l, char *);
 
-	if (format[n] != '.')
-		return (prec);
+	(void)f;
 
-	prec = 0;
+	if (!s)
+		s = "(null)";
+	return (_puts(s));
+}
 
-	for (n += 1; format[n] != '\0'; n++)
-	{
-		if (is_digit(format[n]))
-		{
-			prec *= 10;
-			prec += format[n] - '0';
-		}
-		else if (format[n] == '*')
-		{
-			n++;
-			prec = va_arg(list, int);
-			break;
-		}
-		else
-			break;
-	}
-	*i = n - 1;
-	return (prec);
+/**
+ * print_char - prints a character
+ * @l: va_list arguments from _printf
+ * @f: pointer to the struct flags that determines
+ * if a flag is passed to _printf
+ * Return: number of char printed
+ */
+int print_char(va_list l, flags_t *f)
+{
+	(void)f;
+	_putchar(va_arg(l, int));
+	return (1);
 }
